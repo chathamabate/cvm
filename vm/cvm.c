@@ -38,6 +38,7 @@ void throw_error(char *msg);
 
 int main() {
     throw_error("Something went wrong.");
+    
     return 0;
 }
 
