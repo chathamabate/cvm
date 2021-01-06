@@ -31,69 +31,98 @@ Any address in the Free Memory section can be written to and read from at any ti
 
 The __CVM__ reads 1 byte opcodes.
 
-### Character Opcodes
-* __cadd__ 
-* __csub__
-* __cmul__
-* __cdiv__
-* __cmod__
-* __cneg__
-* __ccmp__
-* __ctoi__
-* __ctol__
-* __ctof__
-* __ctod__
+### Primitive Type Arithmetic Opcodes
+* __char__ Opcodes
+  * __cadd__ 
+  * __csub__
+  * __cmul__
+  * __cdiv__
+  * __cmod__
+  * __cneg__
+  * __ccmp__
+  * __ctoi__
+  * __ctol__
+  * __ctof__
+  * __ctod__
+* __int__ Opcodes
+  * __iadd__
+  * __isub__
+  * __imul__
+  * __idiv__
+  * __imod__
+  * __ineg__
+  * __icmp__
+  * __itoc__
+  * __itol__
+  * __itof__
+  * __itod__
+* __long__ Opcodes
+  * __ladd__
+  * __lsub__
+  * __lmul__
+  * __ldiv__
+  * __lmod__
+  * __lneg__
+  * __lcmp__
+  * __ltoc__
+  * __ltoi__
+  * __ltof__
+  * __ltod__
+* __float__ Opcodes
+  * __fadd__
+  * __fsub__
+  * __fmul__
+  * __fdiv__
+  * __fneg__
+  * __fcmp__
+  * __ftoc__
+  * __ftoi__
+  * __ftol__
+  * __ftod__
+* __double__ Opcodes
+  * __dadd__
+  * __dsub__
+  * __dmul__
+  * __ddiv__
+  * __dneg__
+  * __dcmp__
+  * __dtoc__
+  * __dtoi__
+  * __dtol__
+  * __dtof__
+* __address__ Opcodes
+  * __aadd__
+  * __asub__
+  * __amul__
+  * __adiv__
+  * __amod__
+  * __aneg__
+  * __acmp__
 
-### Integer Opcodes
-* __iadd__
-* __isub__
-* __imul__
-* __idiv__
-* __imod__
-* __ineg__
-* __icmp__
-* __itoc__
-* __itol__
-* __itof__
-* __itod__
+### Bitwise Arithmetic Opcodes
+* 1 Byte Arithmetic Opcodes
+  * __ucpl__
+  * __uand__
+  * __uor__
+  * __uxor__
+  * __ulsh__
+  * __ursh__
+* 4 Byte Arithmetic Opcodes
+  * __qcpl__
+  * __qand__
+  * __qor__
+  * __qxor__
+  * __qlsh__
+  * __qrsh__
+* 8 Byte Arithmetic Opcodes
+  * __ocpl__
+  * __oand__
+  * __oor__
+  * __oxor__
+  * __olsh__
+  * __orsh__
 
-### Long Opcodes
-* __ladd__
-* __lsub__
-* __lmul__
-* __ldiv__
-* __lmod__
-* __lneg__
-* __lcmp__
-* __ltoc__
-* __ltoi__
-* __ltof__
-* __ltod__
-
-### Float Opcodes
-* __fadd__
-* __fsub__
-* __fmul__
-* __fdiv__
-* __fneg__
-* __fcmp__
-* __ftoc__
-* __ftoi__
-* __ftol__
-* __ftod__
-
-### Double Opcodes
-* __dadd__
-* __dsub__
-* __dmul__
-* __ddiv__
-* __dneg__
-* __dcmp__
-* __dtoc__
-* __dtoi__
-* __dtol__
-* __dtof__
-
+### Program Control Opcodes
 
 
 
