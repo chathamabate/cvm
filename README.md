@@ -1,14 +1,14 @@
 # CVM
 
 __CVM__ is a simple virtual machine written in C.
-
+<!-- 
 ## Primitive Data Types
-* __char__ : an unsigned byte.
-* __int__ : a signed 4 byte integer.
-* __long__ : a signed 8 byte integer.
-* __float__ : a 4 byte single-precision floating-point number.
-* __double__ : an 8 byte double-precision floating-point number.
-* __address__ : a unsigned 4 byte integer representing an address in memory.
+* `char` : an unsigned byte.
+* `int` : a signed 4 byte integer.
+* `long` : a signed 8 byte integer.
+* `float` : a 4 byte single-precision floating-point number.
+* `double` : an 8 byte double-precision floating-point number.
+* `address` : a unsigned 4 byte integer representing an address in memory. -->
 
 ## Memory
 A process running on the __CVM__ can be allocated any number of bytes 
@@ -21,109 +21,150 @@ This process has been allocated the maximum number of bytes ($2^{32}$ bytes or ~
 
 Regardless of the size of the memory space, the proportions of each section remain the same.
 The Program Text and Data section occupies the bottom quarter of the space and is Read-Only.
-The next quarter is occupied by the Stack. Any address below the stack pointer can be 
-read from and written to. 
-All addresses in the Stack section which are above the stack pointer cannot be accessed.
-The remaining half of the memory is saved for dynamic usage. 
-Any address in the Free Memory section can be written to and read from at any time.
+The next quarter is occupied by the Stack. The remaining half of the memory is saved for dynamic usage. 
+
+## Object Files
+
+The __CVM__ runs object files with the extension *.cvmo*.
+These are binary files with the following structure.
+
+The first two bytes must have the hex value `C0DE`. 
+This let's the __CVM__ know the given file is an executable object file.
+
+The rest of the file contains a sequence of entries. 
+Each entry can have one of the following three structures. 
+
+__NOTE__, in the following code segments...
+* `()` represent comments. 
+* `__` represents a single byte.
+* `__ ... __` represents a sequence of bytes.
+* Uncommented letters are hexadecimal.
+
+ 
+### 1. Internal Function
+```
+1F                      (Internal Function identifier)
+__ __ __ __ __ __ __ __ (Signed offset to file name entry)  
+__                      (Function name length l where l > 0) 
+__ ... __               (l bytes, each representing an ascii character)
+
+```
+
 
 ## Instruction Set
 
 The __CVM__ reads 1 byte opcodes.
 
 ### Primitive Type Arithmetic Opcodes
-* __char__ Opcodes
-  * __cadd__ 
-  * __csub__
-  * __cmul__
-  * __cdiv__
-  * __cmod__
-  * __cneg__
-  * __ccmp__
-  * __ctoi__
-  * __ctol__
-  * __ctof__
-  * __ctod__
-* __int__ Opcodes
-  * __iadd__
-  * __isub__
-  * __imul__
-  * __idiv__
-  * __imod__
-  * __ineg__
-  * __icmp__
-  * __itoc__
-  * __itol__
-  * __itof__
-  * __itod__
-* __long__ Opcodes
-  * __ladd__
-  * __lsub__
-  * __lmul__
-  * __ldiv__
-  * __lmod__
-  * __lneg__
-  * __lcmp__
-  * __ltoc__
-  * __ltoi__
-  * __ltof__
-  * __ltod__
-* __float__ Opcodes
-  * __fadd__
-  * __fsub__
-  * __fmul__
-  * __fdiv__
-  * __fneg__
-  * __fcmp__
-  * __ftoc__
-  * __ftoi__
-  * __ftol__
-  * __ftod__
-* __double__ Opcodes
-  * __dadd__
-  * __dsub__
-  * __dmul__
-  * __ddiv__
-  * __dneg__
-  * __dcmp__
-  * __dtoc__
-  * __dtoi__
-  * __dtol__
-  * __dtof__
-* __address__ Opcodes
-  * __aadd__
-  * __asub__
-  * __amul__
-  * __adiv__
-  * __amod__
-  * __aneg__
-  * __acmp__
+* `char` Opcodes
+  * `cadd` 
+  * `csub`
+  * `cmul`
+  * `cdiv`
+  * `cmod`
+  * `cneg`
+  * `ccmp`
+  * `ctoi`
+  * `ctol`
+  * `ctof`
+  * `ctod`
+* `int` Opcodes
+  * `iadd`
+  * `isub`
+  * `imul`
+  * `idiv`
+  * `imod`
+  * `ineg`
+  * `icmp`
+  * `itoc`
+  * `itol`
+  * `itof`
+  * `itod`
+* `long` Opcodes
+  * `ladd`
+  * `lsub`
+  * `lmul`
+  * `ldiv`
+  * `lmod`
+  * `lneg`
+  * `lcmp`
+  * `ltoc`
+  * `ltoi`
+  * `ltof`
+  * `ltod`
+* `float` Opcodes
+  * `fadd`
+  * `fsub`
+  * `fmul`
+  * `fdiv`
+  * `fneg`
+  * `fcmp`
+  * `ftoc`
+  * `ftoi`
+  * `ftol`
+  * `ftod`
+* `double` Opcodes
+  * `dadd`
+  * `dsub`
+  * `dmul`
+  * `ddiv`
+  * `dneg`
+  * `dcmp`
+  * `dtoc`
+  * `dtoi`
+  * `dtol`
+  * `dtof`
+* `address` Opcodes
+  * `aadd`
+  * `asub`
+  * `amul`
+  * `adiv`
+  * `amod`
+  * `aneg`
+  * `acmp`
 
 ### Bitwise Arithmetic Opcodes
 * 1 Byte Arithmetic Opcodes
-  * __ucpl__
-  * __uand__
-  * __uor__
-  * __uxor__
-  * __ulsh__
-  * __ursh__
+  * `ucpl`
+  * `uand`
+  * `uor`
+  * `uxor`
+  * `ulsh`
+  * `ursh`
 * 4 Byte Arithmetic Opcodes
-  * __qcpl__
-  * __qand__
-  * __qor__
-  * __qxor__
-  * __qlsh__
-  * __qrsh__
+  * `qcpl`
+  * `qand`
+  * `qor`
+  * `qxor`
+  * `qlsh`
+  * `qrsh`
 * 8 Byte Arithmetic Opcodes
-  * __ocpl__
-  * __oand__
-  * __oor__
-  * __oxor__
-  * __olsh__
-  * __orsh__
+  * `ocpl`
+  * `oand`
+  * `oor`
+  * `oxor`
+  * `olsh`
+  * `orsh`
 
 ### Program Control Opcodes
-
+* Static Control Opcodes
+  * `ifeq <address>`
+  * `ifne <address>`
+  * `ifgt <address>`
+  * `ifge <address>`
+  * `iflt <address>`
+  * `ifle <address>`
+  * `goto <address>`
+  * `call <address>`
+* Dynamic Control Opcodes
+  * `*ifeq`
+  * `*ifne`
+  * `*ifgt`
+  * `*ifge`
+  * `*iflt`
+  * `*ifle`
+  * `*goto`
+  * `*call`
 
 
 
