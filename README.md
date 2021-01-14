@@ -38,18 +38,51 @@ __NOTE__, in the following code segments...
 * `()` represent comments. 
 * `__` represents a single byte.
 * `__ ... __` represents a sequence of bytes.
-* Uncommented letters are hexadecimal.
+* Uncommented letters and numbers are hexadecimal.
 
  
 ### 1. Internal Function
 ```
-1F                      (Internal Function identifier)
-__ __ __ __ __ __ __ __ (Signed offset to file name entry)  
-__                      (Function name length l where l > 0) 
-__ ... __               (l bytes, each representing an ascii character)
-
+1F            (Internal Function identifier)
+__ __ __ __   (Signed offset to file name entry)  
+__            (Unsigned function name length l where l > 0) 
+__ ... __     (l bytes, each representing an ascii character)
+00            (Terminator for function name string)
+__            (Unsigned size of parameter block p)
+__            (Unsigned size of local variable array s where s >= p)
+__ __         (Unsigned size of operand stack size o)
+__ __         (Unsigned size of constant pool r)
+__ ... __     (r bytes representing the constant pool)
+__ __ __ __   (Unsigned size of code section c)
+__ ... __     (c bytes representing the code section)
 ```
+Internal Functions are the most important entries found in __CVM__ object files.
+They represent executable segments of code. 
+The structure of an Internal Function entry outlines to the __CVM__ 
+how said function's stack frame should be created and organized.
 
+### 2. External Function
+```
+EF            (External Function identifier)
+__            (Unsigned function name length l where l > 0)
+__ ... __     (l bytes, each representing an ascii character)
+00            (Terminator for the function name string)
+__ __ __ __   (Signed offset to resolving function)
+```
+External Function entries are explicitly used for linking together __CVM__ 
+object files.
+
+
+### 3. File Entry
+```
+FE            (File Entry identifier)
+__            (Unsigned file name length l where l > 0)
+__ ... __     (l bytes, each representing an ascii character)
+00            (Terminator for the file name string)
+```
+File Entries store file names for debugging purposes. 
+All Internal Functions should referene a File Entry.
+This tells the __CVM__ from which file a given block of code originates from.
 
 ## Instruction Set
 
